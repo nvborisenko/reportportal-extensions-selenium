@@ -8,7 +8,7 @@ namespace Tests
         [Test]
         public void Test1()
         {
-            var webDriver = new OpenQA.Selenium.Chrome.ChromeDriver().AddReportPortal();
+            var webDriver = new OpenQA.Selenium.Firefox.FirefoxDriver().AddReportPortal();
 
             webDriver.Navigate().GoToUrl("http://google.com");
 
