@@ -1,0 +1,23 @@
+﻿image: Visual Studio 2017
+
+configuration:
+  - Release
+
+install:
+  - gitversion /l console /output buildserver
+
+dotnet_csproj:
+  patch: true
+  version: '$(GitVersion_SemVer)'
+
+build_script:
+  - dotnet build
+
+test_script:
+  - dotnet test --no-build
+
+after_test:
+  - dotnet pack
+
+artifacts:
+  - path: '**\*.nupkg'

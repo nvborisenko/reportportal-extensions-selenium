@@ -1,0 +1,15 @@
+﻿{
+  "$schema": "https://raw.githubusercontent.com/reportportal/agent-net-nunit/master/ReportPortal.NUnitExtension/ReportPortal.config.schema",
+  "enabled": true,
+  "server": {
+    "url": "https://rp.epam.com/api/v1/",
+    "project": "mikalai_barysenka_personal",
+    "authentication": {
+      "uuid": "ba7eb7c8-7b33-42f6-8cf0-e9cd26e717f4"
+    }
+  },
+  "launch": {
+    "name": "Selenium Event Listener Integration Tests",
+    "debugMode": true
+  }
+}

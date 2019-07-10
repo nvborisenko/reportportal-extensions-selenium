@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>netstandard2.0;net45;</TargetFrameworks>
+    <Version>1.0.0</Version>
+    <Description>Send Selenium WebDriver usage to Report Portal</Description>
+    <Authors>Nikolay Borisenko</Authors>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageProjectUrl>http://reportportal.io</PackageProjectUrl>
+    <PackageIconUrl>https://raw.githubusercontent.com/nvborisenko/reportportal-extensions-selenium/master/Logo.png</PackageIconUrl>
+    <RepositoryType>GitHub</RepositoryType>
+    <RepositoryUrl>https://github.com/nvborisenko/reportportal-extensions-selenium</RepositoryUrl>
+    <PackageTags>report reportportal testing selenium</PackageTags>
+
+    <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="ReportPortal.Shared" Version="2.3.0" />
+    <PackageReference Include="Selenium.Support" Version="3.14.0" />
+  </ItemGroup>
+
+</Project>
