@@ -1,4 +1,5 @@
 using NUnit.Framework;
+using OpenQA.Selenium;
 using ReportPortal.Extensions.Selenium;
 
 namespace Tests
@@ -10,7 +11,9 @@ namespace Tests
         {
             var webDriver = new OpenQA.Selenium.Firefox.FirefoxDriver().AddReportPortal();
 
-            webDriver.Navigate().GoToUrl("http://google.com");
+            webDriver.Navigate().GoToUrl("https://google.com");
+
+            webDriver.FindElement(By.Name("q")).SendKeys("Report Portal" + Keys.Enter);
 
             webDriver.Close();
 

@@ -8,7 +8,6 @@ namespace ReportPortal.Extensions.Selenium
 {
     public class WebDriverListener : OpenQA.Selenium.Support.Events.EventFiringWebDriver
     {
-        const Client.Models.LogLevel LEVEL = Client.Models.LogLevel.Trace;
         const string MARKDOWN_MODE = "!!!MARKDOWN_MODE!!!";
 
         protected Options _options;
@@ -17,19 +16,25 @@ namespace ReportPortal.Extensions.Selenium
         {
             _options = options;
 
-            this.Navigating += WebDriverListener_Navigating;
+            LogMessage(_options.Level.ToString());
+
             this.Navigated += WebDriverListener_Navigated;
-            this.ElementClicking += WebDriverListener_ElementClicking;
+            this.ElementValueChanged += WebDriverListener_ElementValueChanged;
+        }
+
+        private void WebDriverListener_ElementValueChanged(object sender, OpenQA.Selenium.Support.Events.WebElementValueEventArgs e)
+        {
+            LogMessage($"'{e.Element}' value changed to '{e.Value}'");
         }
 
         private void WebDriverListener_Navigated(object sender, OpenQA.Selenium.Support.Events.WebDriverNavigationEventArgs e)
         {
-            var screenshot = ((ITakesScreenshot)base.WrappedDriver).GetScreenshot().AsByteArray;
+            var screenshot = base.GetScreenshot().AsByteArray;
             Log.Message(new Client.Requests.AddLogItemRequest
             {
-                Level = LEVEL,
+                Level = _options.Level,
                 Time = DateTime.UtcNow,
-                Text = $"Navigated to {e.Url}",
+                Text = $"{MARKDOWN_MODE}Navigated to [{e.Driver.Title}]({e.Url})",
                 Attach = new Client.Models.Attach
                 {
                     Name = "Screenshot",
@@ -39,23 +44,13 @@ namespace ReportPortal.Extensions.Selenium
             });
         }
 
-        private void WebDriverListener_Navigating(object sender, OpenQA.Selenium.Support.Events.WebDriverNavigationEventArgs e)
+        private void LogMessage(string text)
         {
             Log.Message(new Client.Requests.AddLogItemRequest
             {
-                Level = LEVEL,
+                Level = _options.Level,
                 Time = DateTime.UtcNow,
-                Text = $"{MARKDOWN_MODE}Navigating to [{e.Url}]({e.Url})"
-            });
-        }
-
-        private void WebDriverListener_ElementClicking(object sender, OpenQA.Selenium.Support.Events.WebElementEventArgs e)
-        {
-            Log.Message(new Client.Requests.AddLogItemRequest
-            {
-                Level = LEVEL,
-                Time = DateTime.UtcNow,
-                Text = $"Clicking on {e.Element}"
+                Text = text
             });
         }
     }
