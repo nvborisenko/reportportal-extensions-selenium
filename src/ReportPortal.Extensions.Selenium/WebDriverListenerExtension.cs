@@ -7,23 +7,13 @@ namespace ReportPortal.Extensions.Selenium
 {
     public static class WebDriverListenerExtension
     {
-
-
         public static IWebDriver AddReportPortal(this IWebDriver webDriver, Func<Options, Options> optionsFunc = null)
         {
-            var options = optionsFunc == null ? DefaultOptions : optionsFunc.Invoke(DefaultOptions);
+            var options = new Options();
 
-            var rpListener = new WebDriverListener(webDriver, options);
+            options = optionsFunc == null ? options : optionsFunc.Invoke(new Options());
 
-            return rpListener;
-        }
-
-        private static Options DefaultOptions
-        {
-            get
-            {
-                return new Options();
-            }
+            return new WebDriverListener(webDriver, options);
         }
     }
 }

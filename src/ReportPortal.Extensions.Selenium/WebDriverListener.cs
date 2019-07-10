@@ -16,32 +16,24 @@ namespace ReportPortal.Extensions.Selenium
         {
             _options = options;
 
-            LogMessage(_options.Level.ToString());
-
             this.Navigated += WebDriverListener_Navigated;
+            this.FindingElement += WebDriverListener_FindingElement;
             this.ElementValueChanged += WebDriverListener_ElementValueChanged;
+        }
+
+        private void WebDriverListener_FindingElement(object sender, OpenQA.Selenium.Support.Events.FindElementEventArgs e)
+        {
+            LogMessage($"Finding element {e.FindMethod}");
         }
 
         private void WebDriverListener_ElementValueChanged(object sender, OpenQA.Selenium.Support.Events.WebElementValueEventArgs e)
         {
-            LogMessage($"'{e.Element}' value changed to '{e.Value}'");
+            LogScreenshot($"Value of the '{e.Element.TagName}' changed to '{e.Value}'");
         }
 
         private void WebDriverListener_Navigated(object sender, OpenQA.Selenium.Support.Events.WebDriverNavigationEventArgs e)
         {
-            var screenshot = base.GetScreenshot().AsByteArray;
-            Log.Message(new Client.Requests.AddLogItemRequest
-            {
-                Level = _options.Level,
-                Time = DateTime.UtcNow,
-                Text = $"{MARKDOWN_MODE}Navigated to [{e.Driver.Title}]({e.Url})",
-                Attach = new Client.Models.Attach
-                {
-                    Name = "Screenshot",
-                    MimeType = "image/png",
-                    Data = screenshot
-                }
-            });
+            LogScreenshot($"{MARKDOWN_MODE}Navigated to [{e.Driver.Title}]({e.Url})");
         }
 
         private void LogMessage(string text)
@@ -51,6 +43,23 @@ namespace ReportPortal.Extensions.Selenium
                 Level = _options.Level,
                 Time = DateTime.UtcNow,
                 Text = text
+            });
+        }
+
+        private void LogScreenshot(string text)
+        {
+            var screenshot = base.GetScreenshot().AsByteArray;
+            Log.Message(new Client.Requests.AddLogItemRequest
+            {
+                Level = _options.Level,
+                Time = DateTime.UtcNow,
+                Text = text,
+                Attach = new Client.Models.Attach
+                {
+                    Name = "Screenshot",
+                    MimeType = "image/png",
+                    Data = screenshot
+                }
             });
         }
     }
