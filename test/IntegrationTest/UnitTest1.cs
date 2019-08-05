@@ -11,14 +11,11 @@ namespace Tests
         public void Test1()
         {
             var webDriver = new OpenQA.Selenium.Firefox.FirefoxDriver().AddReportPortal();
-            webDriver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(3);
 
-            webDriver.Navigate().GoToUrl("https://google.com");
+            webDriver.Navigate().GoToUrl("https://www.nuget.org");
 
-            webDriver.FindElement(By.Name("q")).SendKeys("Report Portal");
-            webDriver.FindElement(By.Name("btnK")).Click();
-
-            webDriver.Close();
+            webDriver.FindElement(By.Name("q")).SendKeys("ReportPortal.Extensions");
+            webDriver.FindElement(By.ClassName("btn-search")).Click();
 
             webDriver.Quit();
         }

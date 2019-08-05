@@ -19,12 +19,18 @@ namespace ReportPortal.Extensions.Selenium
             this.Navigated += WebDriverListener_Navigated;
             this.FindingElement += WebDriverListener_FindingElement;
             this.ElementClicking += WebDriverListener_ElementClicking;
+            this.ElementClicked += WebDriverListener_ElementClicked;
             this.ElementValueChanged += WebDriverListener_ElementValueChanged;
+        }
+
+        private void WebDriverListener_ElementClicked(object sender, OpenQA.Selenium.Support.Events.WebElementEventArgs e)
+        {
+            LogScreenshot($"{e.Element} clicked");
         }
 
         private void WebDriverListener_ElementClicking(object sender, OpenQA.Selenium.Support.Events.WebElementEventArgs e)
         {
-            LogMessage($"Clicking on the {e.Element}");
+            LogMessage($"Clicking on the {e.Element.Text} {e.Element}");
         }
 
         private void WebDriverListener_FindingElement(object sender, OpenQA.Selenium.Support.Events.FindElementEventArgs e)
@@ -34,7 +40,7 @@ namespace ReportPortal.Extensions.Selenium
 
         private void WebDriverListener_ElementValueChanged(object sender, OpenQA.Selenium.Support.Events.WebElementValueEventArgs e)
         {
-            LogScreenshot($"Value of the {e.Element} changed to '{e.Value}'");
+            LogScreenshot($"Value of the {e.Element} changed to `{e.Value}`");
         }
 
         private void WebDriverListener_Navigated(object sender, OpenQA.Selenium.Support.Events.WebDriverNavigationEventArgs e)
