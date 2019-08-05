@@ -18,22 +18,28 @@ namespace ReportPortal.Extensions.Selenium
 
             this.Navigated += WebDriverListener_Navigated;
             this.FindingElement += WebDriverListener_FindingElement;
+            this.ElementClicking += WebDriverListener_ElementClicking;
             this.ElementValueChanged += WebDriverListener_ElementValueChanged;
+        }
+
+        private void WebDriverListener_ElementClicking(object sender, OpenQA.Selenium.Support.Events.WebElementEventArgs e)
+        {
+            LogMessage($"Clicking on the {e.Element}");
         }
 
         private void WebDriverListener_FindingElement(object sender, OpenQA.Selenium.Support.Events.FindElementEventArgs e)
         {
-            LogMessage($"Finding element {e.FindMethod}");
+            LogMessage($"Finding element `{e.FindMethod}`");
         }
 
         private void WebDriverListener_ElementValueChanged(object sender, OpenQA.Selenium.Support.Events.WebElementValueEventArgs e)
         {
-            LogScreenshot($"Value of the '{e.Element.TagName}' changed to '{e.Value}'");
+            LogScreenshot($"Value of the {e.Element} changed to '{e.Value}'");
         }
 
         private void WebDriverListener_Navigated(object sender, OpenQA.Selenium.Support.Events.WebDriverNavigationEventArgs e)
         {
-            LogScreenshot($"{MARKDOWN_MODE}Navigated to [{e.Driver.Title}]({e.Url})");
+            LogScreenshot($"Navigated to [{e.Driver.Title}]({e.Url})");
         }
 
         private void LogMessage(string text)
@@ -42,7 +48,7 @@ namespace ReportPortal.Extensions.Selenium
             {
                 Level = _options.Level,
                 Time = DateTime.UtcNow,
-                Text = text
+                Text = $"{MARKDOWN_MODE}{text}"
             });
         }
 
@@ -53,7 +59,7 @@ namespace ReportPortal.Extensions.Selenium
             {
                 Level = _options.Level,
                 Time = DateTime.UtcNow,
-                Text = text,
+                Text = $"{MARKDOWN_MODE}{text}",
                 Attach = new Client.Models.Attach
                 {
                     Name = "Screenshot",
