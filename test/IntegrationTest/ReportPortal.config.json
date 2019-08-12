@@ -3,7 +3,7 @@
   "enabled": true,
   "server": {
     "url": "https://rp.epam.com/api/v1/",
-    "project": "mikalai_barysenka_personal",
+    "project": "default_project",
     "authentication": {
       "uuid": "ba7eb7c8-7b33-42f6-8cf0-e9cd26e717f4"
     }
