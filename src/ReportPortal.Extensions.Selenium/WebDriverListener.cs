@@ -16,11 +16,17 @@ namespace ReportPortal.Extensions.Selenium
         {
             _options = options;
 
+            this.Navigating += WebDriverListener_Navigating;
             this.Navigated += WebDriverListener_Navigated;
             this.FindingElement += WebDriverListener_FindingElement;
             this.ElementClicking += WebDriverListener_ElementClicking;
             this.ElementClicked += WebDriverListener_ElementClicked;
             this.ElementValueChanged += WebDriverListener_ElementValueChanged;
+        }
+
+        private void WebDriverListener_Navigating(object sender, OpenQA.Selenium.Support.Events.WebDriverNavigationEventArgs e)
+        {
+            LogMessage($"Navigating to {e.Url}");
         }
 
         private void WebDriverListener_ElementClicked(object sender, OpenQA.Selenium.Support.Events.WebElementEventArgs e)
