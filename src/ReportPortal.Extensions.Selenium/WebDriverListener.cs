@@ -36,7 +36,7 @@ namespace ReportPortal.Extensions.Selenium
 
         private void WebDriverListener_ElementClicking(object sender, OpenQA.Selenium.Support.Events.WebElementEventArgs e)
         {
-            LogMessage($"Clicking on the {e.Element.Text} {e.Element}");
+            LogMessage($"Clicking on the {e.Element.TagName} `{e.Element.Text}` {e.Element}");
         }
 
         private void WebDriverListener_FindingElement(object sender, OpenQA.Selenium.Support.Events.FindElementEventArgs e)
