@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFrameworks>netstandard2.0;net45;</TargetFrameworks>
     <Version>1.0.0</Version>
-    <Description>Send Selenium WebDriver usage to Report Portal</Description>
+    <Description>Log Selenium WebDriver events to http://reportportal.io</Description>
     <Authors>Nikolay Borisenko</Authors>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageProjectUrl>http://reportportal.io</PackageProjectUrl>
