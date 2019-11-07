@@ -8,8 +8,6 @@ namespace ReportPortal.Extensions.Selenium
 {
     public class WebDriverListener : OpenQA.Selenium.Support.Events.EventFiringWebDriver
     {
-        const string MARKDOWN_MODE = "!!!MARKDOWN_MODE!!!";
-
         protected Options _options;
 
         public WebDriverListener(IWebDriver parentDriver, Options options) : base(parentDriver)
@@ -60,7 +58,7 @@ namespace ReportPortal.Extensions.Selenium
             {
                 Level = _options.Level,
                 Time = DateTime.UtcNow,
-                Text = $"{MARKDOWN_MODE}{text}"
+                Text = $"{_options.MarkdownPrefix}{text}"
             });
         }
 
@@ -71,7 +69,7 @@ namespace ReportPortal.Extensions.Selenium
             {
                 Level = _options.Level,
                 Time = DateTime.UtcNow,
-                Text = $"{MARKDOWN_MODE}{text}",
+                Text = $"{_options.MarkdownPrefix}{text}",
                 Attach = new Client.Models.Attach
                 {
                     Name = "Screenshot",

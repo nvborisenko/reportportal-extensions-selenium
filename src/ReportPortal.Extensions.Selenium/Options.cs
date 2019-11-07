@@ -9,9 +9,17 @@ namespace ReportPortal.Extensions.Selenium
     {
         public LogLevel Level { get; set; } = LogLevel.Trace;
 
+        public string MarkdownPrefix {get; set; } = "";
+
         public Options UseDefaultLevel(LogLevel level)
         {
             Level = level;
+            return this;
+        }
+
+        public Options UseMarkdownPrefix()
+        {
+            MarkdownPrefix = "!!!MARKDOWN_MODE!!!";
             return this;
         }
     }
